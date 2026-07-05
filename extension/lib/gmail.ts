@@ -122,6 +122,20 @@ export function getSendButton(composeWindow: Element): HTMLElement | null {
   return null;
 }
 
+export function getDropdownButton(composeWindow: Element): HTMLElement | null {
+  const selectors = [
+    'div[role="button"][aria-label*="More send options"]',
+    'div[role="button"][data-tooltip*="More send options"]',
+    'div[role="button"][aria-label*="more send options" i]',
+  ];
+  for (const s of selectors) {
+    const el = composeWindow.querySelector<HTMLElement>(s);
+    if (el) return el;
+  }
+  return null;
+}
+
+
 export function getOpenEmailSubject(): string | null {
   const selectors = [
     'h2[data-thread-perm-id]',

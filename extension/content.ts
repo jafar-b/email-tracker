@@ -1,7 +1,7 @@
 import type { PlasmoCSConfig } from 'plasmo';
 import { getTrackingEnabledSync, setTrackingEnabled, initStorageListener, loadInitialState } from './lib/storage';
 import { registerEmail, getPixelUrl, resetTrackingStatus, fetchRecentStatuses } from './lib/api';
-import { getComposeWindows, getComposeBody, getComposeToolbar, getSubject, getRecipient, getSender, getSendButton, getOpenEmailSubject, isInEmailView } from './lib/gmail';
+import { getComposeWindows, getComposeBody, getComposeToolbar, getSubject, getRecipient, getSender, getSendButton, getDropdownButton, getOpenEmailSubject, isInEmailView } from './lib/gmail';
 import { processListIcons, invalidateListIconCache } from './lib/listIcons';
 
 export const config: PlasmoCSConfig = {
@@ -109,6 +109,29 @@ function hookSendButton(composeWindow: Element) {
   }, true);
 }
 
+function hookDropdownButton(composeWindow: Element) {
+  const dropBtn = getDropdownButton(composeWindow);
+  if (!dropBtn || dropBtn.hasAttribute(INJECTED_ATTR)) return;
+  dropBtn.setAttribute(INJECTED_ATTR, 'true');
+
+  dropBtn.addEventListener('click', () => {
+    console.log('[Mail Tracker] More send options clicked.');
+    setTimeout(() => {
+      const menuItems = document.querySelectorAll('div[role="menuitem"]');
+      for (const item of Array.from(menuItems)) {
+        const text = item.textContent?.toLowerCase() || '';
+        if (text.includes('schedule send') && !item.hasAttribute(INJECTED_ATTR)) {
+          item.setAttribute(INJECTED_ATTR, 'true');
+          item.addEventListener('click', async () => {
+            console.log('[Mail Tracker] Schedule send option clicked. Injecting tracking pixel...');
+            await injectPixelBeforeSend(composeWindow);
+          });
+        }
+      }
+    }, 150);
+  });
+}
+
 function processComposeWindows() {
   for (const win of getComposeWindows()) {
     if (win.querySelector(`#${BUTTON_ID}`)) continue;
@@ -116,6 +139,7 @@ function processComposeWindows() {
     if (!toolbar) continue;
     toolbar.appendChild(createToggleButton());
     hookSendButton(win);
+    hookDropdownButton(win);
   }
 }
 
