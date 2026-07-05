@@ -1,0 +1,9 @@
+{
+  "name": "mailtracker",
+  "private": true,
+  "scripts": {
+    "dev:ext": "cd extension && npm run dev",
+    "dev:worker": "cd worker && npm run dev",
+    "build:ext": "cd extension && npm run build"
+  }
+}

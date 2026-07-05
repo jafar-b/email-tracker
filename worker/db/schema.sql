@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS emails (
+  id TEXT PRIMARY KEY,
+  subject TEXT NOT NULL,
+  recipient TEXT NOT NULL,
+  sender TEXT NOT NULL,
+  opened INTEGER DEFAULT 0,
+  opened_at TEXT,
+  created_at TEXT DEFAULT CURRENT_TIMESTAMP
+);

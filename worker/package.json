@@ -1,0 +1,16 @@
+{
+  "name": "mailtracker-backend",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240101.0",
+    "typescript": "^5.3.3",
+    "wrangler": "^3.22.0"
+  },
+  "dependencies": {
+    "hono": "^4.0.0"
+  }
+}

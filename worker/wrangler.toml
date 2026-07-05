@@ -1,0 +1,8 @@
+name = "mailtracker-backend"
+main = "src/index.ts"
+compatibility_date = "2026-07-05"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "mailtracker-db"
+database_id = "417c2fd2-03f6-41c0-aca6-5c106d8bd950"
