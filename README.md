@@ -3,6 +3,9 @@
 A lightweight, serverless, and privacy-focused email view tracker for Gmail. Built with Manifest V3 (via Plasmo), a Cloudflare Worker backend (Hono), and Cloudflare D1 (SQLite database).
 
 ---
+<img width="1572" height="274" alt="image" src="https://github.com/user-attachments/assets/87435c88-8986-4592-ab15-0b33f617780e" />
+
+<img width="1518" height="763" alt="image" src="https://github.com/user-attachments/assets/57e62723-033b-47ef-9071-128fa1f6b809" />
 
 ## 🚀 Features
 
