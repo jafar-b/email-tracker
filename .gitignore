@@ -1,10 +1,46 @@
+# Dependencies
 node_modules/
-.next/
+/.pnp
+.pnp.js
+
+# Build/Packaging Outputs
 build/
 .plasmo/
 dist/
-*.log
-.DS_Store
+out/
+
+# Environment Variables & Secrets
 .env
-.env.local
+.env*.local
+.devvars
+
+# Cloudflare Wrangler & Miniflare State
+.wrangler/
+.wrangler-account.json
+
+# Local databases
+*.db
+*.sqlite
+*.sqlite-journal
+*.sqlite-wal
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor & OS files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# TypeScript
 *.tsbuildinfo
