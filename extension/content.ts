@@ -13,6 +13,7 @@ export const config: PlasmoCSConfig = {
 const BUTTON_ID = 'mailtracker-toggle';
 const INJECTED_ATTR = 'data-mailtracker-injected';
 const SENDING_ATTR = 'data-mailtracker-sending';
+const PIXEL_INJECTED_ATTR = 'data-mailtracker-pixel-injected'; // per-compose guard
 
 const EYE_SVG_ON = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`;
 const EYE_SVG_OFF = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>`;
@@ -64,8 +65,19 @@ function createToggleButton(): HTMLElement {
 async function injectPixelBeforeSend(composeWindow: Element) {
   if (!getTrackingEnabledSync()) return;
 
+  // Guard: if pixel already injected into this compose window, skip (prevents double-registration
+  // from both hookSendButton and hookDropdownButton firing, e.g. with scheduled sends)
+  if (composeWindow.hasAttribute(PIXEL_INJECTED_ATTR)) {
+    console.log('[Mail Tracker] Pixel already injected for this compose window, skipping.');
+    return;
+  }
+  composeWindow.setAttribute(PIXEL_INJECTED_ATTR, 'true');
+
   const body = getComposeBody(composeWindow);
-  if (!body) return;
+  if (!body) {
+    composeWindow.removeAttribute(PIXEL_INJECTED_ATTR); // rollback if body not found
+    return;
+  }
 
   const subject = getSubject(composeWindow);
   const recipient = getRecipient(composeWindow);
@@ -75,6 +87,7 @@ async function injectPixelBeforeSend(composeWindow: Element) {
   const email = await registerEmail(subject, recipient, sender);
   if (!email) {
     console.error('[Mail Tracker] Failed to register email tracking.');
+    composeWindow.removeAttribute(PIXEL_INJECTED_ATTR); // rollback so user can retry
     return;
   }
   console.log('[Mail Tracker] Registered email successfully. ID:', email.id);
@@ -105,7 +118,7 @@ function hookSendButton(composeWindow: Element) {
 
     sendBtn.setAttribute(SENDING_ATTR, 'true');
     sendBtn.click();
-    setTimeout(() => sendBtn.removeAttribute(SENDING_ATTR), 5000);
+    requestAnimationFrame(() => sendBtn.removeAttribute(SENDING_ATTR));
   }, true);
 }
 
