@@ -23,7 +23,6 @@ function Dashboard() {
 
   useEffect(() => {
     loadData();
-    // Refresh stats every 15 seconds while dashboard is open
     const interval = setInterval(loadData, 15000);
     return () => clearInterval(interval);
   }, []);
@@ -76,12 +75,11 @@ function Dashboard() {
   return (
     <div style={{
       minHeight: "100vh",
-      background: "#f8fafc",
+      background: "#0b1120",
       fontFamily: "'Inter', system-ui, -apple-system, sans-serif",
-      color: "#0f172a",
+      color: "#e2e8f0",
       padding: "40px 24px"
     }}>
-      {/* Google Font Embed */}
       <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
@@ -104,18 +102,18 @@ function Dashboard() {
               }}>
                 T
               </div>
-              <h1 style={{ fontSize: 28, fontWeight: 700, letterSpacing: "-0.03em", margin: 0 }}>Mail Tracker Analytics</h1>
+              <h1 style={{ fontSize: 28, fontWeight: 700, letterSpacing: "-0.03em", margin: 0 }}>Mail Tracker Analytics aljshdflkaskvdh</h1>
             </div>
-            <p style={{ color: "#64748b", margin: "6px 0 0 0", fontSize: 14 }}>Real-time privacy-focused email view statistics</p>
+            <p style={{ color: "#94a3b8", margin: "6px 0 0 0", fontSize: 14 }}>Real-time privacy-focused email view statistics</p>
           </div>
           <div style={{ display: "flex", gap: 12 }}>
             <button
               onClick={loadData}
               disabled={loading}
               style={{
-                background: "#ffffff",
-                border: "1px solid #e2e8f0",
-                color: "#475569",
+                background: "#1a2332",
+                border: "1px solid #2d3a4a",
+                color: "#cbd5e1",
                 padding: "10px 16px",
                 borderRadius: 10,
                 fontSize: 14,
@@ -136,7 +134,7 @@ function Dashboard() {
               onClick={handleExportCSV}
               disabled={emails.length === 0}
               style={{
-                background: "#0f172a",
+                background: "#10b981",
                 border: "none",
                 color: "#ffffff",
                 padding: "10px 18px",
@@ -148,7 +146,7 @@ function Dashboard() {
                 alignItems: "center",
                 gap: 8,
                 transition: "all 0.15s ease",
-                opacity: emails.length === 0 ? 0.6 : 1
+                opacity: emails.length === 0 ? 0.4 : 1
               }}
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -164,39 +162,39 @@ function Dashboard() {
         {/* Stats Grid */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 20, marginBottom: 40 }}>
           {/* Card: Total */}
-          <div style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: 16, padding: 24, boxShadow: "0 1px 3px rgba(0,0,0,0.02)" }}>
-            <div style={{ fontSize: 13, fontWeight: 600, color: "#64748b", textTransform: "uppercase", letterSpacing: "0.05em" }}>Total Tracked</div>
-            <div style={{ fontSize: 36, fontWeight: 700, color: "#0f172a", marginTop: 8 }}>{stats ? stats.total : 0}</div>
-            <div style={{ fontSize: 12, color: "#94a3b8", marginTop: 8 }}>All registered emails</div>
+          <div style={{ background: "#1a2332", border: "1px solid #2d3a4a", borderRadius: 16, padding: 24, boxShadow: "0 1px 3px rgba(0,0,0,0.2)" }}>
+            <div style={{ fontSize: 13, fontWeight: 600, color: "#94a3b8", textTransform: "uppercase", letterSpacing: "0.05em" }}>Total Tracked</div>
+            <div style={{ fontSize: 36, fontWeight: 700, color: "#e2e8f0", marginTop: 8 }}>{stats ? stats.total : 0}</div>
+            <div style={{ fontSize: 12, color: "#64748b", marginTop: 8 }}>All registered emails</div>
           </div>
           {/* Card: Opened */}
-          <div style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: 16, padding: 24, boxShadow: "0 1px 3px rgba(0,0,0,0.02)" }}>
-            <div style={{ fontSize: 13, fontWeight: 600, color: "#10b981", textTransform: "uppercase", letterSpacing: "0.05em" }}>Opened</div>
-            <div style={{ fontSize: 36, fontWeight: 700, color: "#10b981", marginTop: 8 }}>{stats ? stats.opened : 0}</div>
-            <div style={{ fontSize: 12, color: "#10b981", marginTop: 8 }}>
+          <div style={{ background: "#1a2332", border: "1px solid #2d3a4a", borderRadius: 16, padding: 24, boxShadow: "0 1px 3px rgba(0,0,0,0.2)" }}>
+            <div style={{ fontSize: 13, fontWeight: 600, color: "#34d399", textTransform: "uppercase", letterSpacing: "0.05em" }}>Opened</div>
+            <div style={{ fontSize: 36, fontWeight: 700, color: "#34d399", marginTop: 8 }}>{stats ? stats.opened : 0}</div>
+            <div style={{ fontSize: 12, color: "#34d399", marginTop: 8 }}>
               {stats ? stats.openedToday : 0} opened today
             </div>
           </div>
           {/* Card: Pending */}
-          <div style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: 16, padding: 24, boxShadow: "0 1px 3px rgba(0,0,0,0.02)" }}>
-            <div style={{ fontSize: 13, fontWeight: 600, color: "#64748b", textTransform: "uppercase", letterSpacing: "0.05em" }}>Pending</div>
-            <div style={{ fontSize: 36, fontWeight: 700, color: "#475569", marginTop: 8 }}>{stats ? stats.pending : 0}</div>
-            <div style={{ fontSize: 12, color: "#94a3b8", marginTop: 8 }}>Awaiting recipient view</div>
+          <div style={{ background: "#1a2332", border: "1px solid #2d3a4a", borderRadius: 16, padding: 24, boxShadow: "0 1px 3px rgba(0,0,0,0.2)" }}>
+            <div style={{ fontSize: 13, fontWeight: 600, color: "#94a3b8", textTransform: "uppercase", letterSpacing: "0.05em" }}>Pending</div>
+            <div style={{ fontSize: 36, fontWeight: 700, color: "#cbd5e1", marginTop: 8 }}>{stats ? stats.pending : 0}</div>
+            <div style={{ fontSize: 12, color: "#64748b", marginTop: 8 }}>Awaiting recipient view</div>
           </div>
           {/* Card: Open Rate */}
-          <div style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: 16, padding: 24, boxShadow: "0 1px 3px rgba(0,0,0,0.02)" }}>
-            <div style={{ fontSize: 13, fontWeight: 600, color: "#6366f1", textTransform: "uppercase", letterSpacing: "0.05em" }}>Open Rate</div>
-            <div style={{ fontSize: 36, fontWeight: 700, color: "#6366f1", marginTop: 8 }}>{stats ? stats.openRate : 0}%</div>
-            <div style={{ fontSize: 12, color: "#94a3b8", marginTop: 8 }}>
+          <div style={{ background: "#1a2332", border: "1px solid #2d3a4a", borderRadius: 16, padding: 24, boxShadow: "0 1px 3px rgba(0,0,0,0.2)" }}>
+            <div style={{ fontSize: 13, fontWeight: 600, color: "#818cf8", textTransform: "uppercase", letterSpacing: "0.05em" }}>Open Rate</div>
+            <div style={{ fontSize: 36, fontWeight: 700, color: "#818cf8", marginTop: 8 }}>{stats ? stats.openRate : 0}%</div>
+            <div style={{ fontSize: 12, color: "#64748b", marginTop: 8 }}>
               {stats ? stats.openedThisWeek : 0} opened this week
             </div>
           </div>
         </div>
 
         {/* Filters and List Section */}
-        <div style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: 20, boxShadow: "0 4px 6px -1px rgba(0,0,0,0.05)", overflow: "hidden" }}>
+        <div style={{ background: "#1a2332", border: "1px solid #2d3a4a", borderRadius: 20, boxShadow: "0 4px 6px -1px rgba(0,0,0,0.2)", overflow: "hidden" }}>
           {/* Controls Bar */}
-          <div style={{ padding: "20px 24px", borderBottom: "1px solid #e2e8f0", display: "flex", gap: 16, flexWrap: "wrap", justifyContent: "space-between", alignItems: "center" }}>
+          <div style={{ padding: "20px 24px", borderBottom: "1px solid #2d3a4a", display: "flex", gap: 16, flexWrap: "wrap", justifyContent: "space-between", alignItems: "center" }}>
             <div style={{ display: "flex", gap: 12, flex: 1, minWidth: 280 }}>
               <div style={{ position: "relative", flex: 1 }}>
                 <input
@@ -207,17 +205,19 @@ function Dashboard() {
                   style={{
                     width: "100%",
                     padding: "10px 16px 10px 40px",
-                    border: "1px solid #e2e8f0",
+                    border: "1px solid #2d3a4a",
                     borderRadius: 10,
                     fontSize: 14,
                     boxSizing: "border-box",
                     outline: "none",
+                    background: "#0b1120",
+                    color: "#e2e8f0",
                     transition: "border-color 0.15s ease"
                   }}
                   onFocus={(e) => e.target.style.borderColor = "#10b981"}
-                  onBlur={(e) => e.target.style.borderColor = "#e2e8f0"}
+                  onBlur={(e) => e.target.style.borderColor = "#2d3a4a"}
                 />
-                <svg style={{ position: "absolute", left: 14, top: 12, color: "#94a3b8" }} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <svg style={{ position: "absolute", left: 14, top: 12, color: "#64748b" }} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                   <circle cx="11" cy="11" r="8"></circle>
                   <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 </svg>
@@ -227,11 +227,11 @@ function Dashboard() {
                 onChange={(e) => setFilterType(e.target.value as any)}
                 style={{
                   padding: "10px 16px",
-                  border: "1px solid #e2e8f0",
+                  border: "1px solid #2d3a4a",
                   borderRadius: 10,
                   fontSize: 14,
-                  color: "#475569",
-                  background: "#ffffff",
+                  color: "#cbd5e1",
+                  background: "#1a2332",
                   outline: "none",
                   cursor: "pointer"
                 }}
@@ -241,7 +241,7 @@ function Dashboard() {
                 <option value="pending">Pending Only</option>
               </select>
             </div>
-            <div style={{ fontSize: 13, color: "#64748b", fontWeight: 500 }}>
+            <div style={{ fontSize: 13, color: "#94a3b8", fontWeight: 500 }}>
               Showing {filteredEmails.length} of {emails.length} emails
             </div>
           </div>
@@ -251,19 +251,19 @@ function Dashboard() {
             <div style={{ overflowX: "auto" }}>
               <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left" }}>
                 <thead>
-                  <tr style={{ background: "#f8fafc", borderBottom: "1px solid #e2e8f0" }}>
-                    <th style={{ padding: "16px 24px", fontSize: 12, fontWeight: 600, color: "#64748b", textTransform: "uppercase" }}>Subject</th>
-                    <th style={{ padding: "16px 24px", fontSize: 12, fontWeight: 600, color: "#64748b", textTransform: "uppercase" }}>Recipient</th>
-                    <th style={{ padding: "16px 24px", fontSize: 12, fontWeight: 600, color: "#64748b", textTransform: "uppercase" }}>Status</th>
-                    <th style={{ padding: "16px 24px", fontSize: 12, fontWeight: 600, color: "#64748b", textTransform: "uppercase" }}>Sent Date</th>
-                    <th style={{ padding: "16px 24px", fontSize: 12, fontWeight: 600, color: "#64748b", textTransform: "uppercase" }}>Opened Date</th>
+                  <tr style={{ background: "#0b1120", borderBottom: "1px solid #2d3a4a" }}>
+                    <th style={{ padding: "16px 24px", fontSize: 12, fontWeight: 600, color: "#94a3b8", textTransform: "uppercase" }}>Subject</th>
+                    <th style={{ padding: "16px 24px", fontSize: 12, fontWeight: 600, color: "#94a3b8", textTransform: "uppercase" }}>Recipient</th>
+                    <th style={{ padding: "16px 24px", fontSize: 12, fontWeight: 600, color: "#94a3b8", textTransform: "uppercase" }}>Status</th>
+                    <th style={{ padding: "16px 24px", fontSize: 12, fontWeight: 600, color: "#94a3b8", textTransform: "uppercase" }}>Sent Date</th>
+                    <th style={{ padding: "16px 24px", fontSize: 12, fontWeight: 600, color: "#94a3b8", textTransform: "uppercase" }}>Opened Date</th>
                   </tr>
                 </thead>
                 <tbody>
                   {filteredEmails.map((email) => (
-                    <tr key={email.id} style={{ borderBottom: "1px solid #e2e8f0", transition: "background 0.1s ease" }} onMouseEnter={(e) => e.currentTarget.style.background = "#f8fafc"} onMouseLeave={(e) => e.currentTarget.style.background = "transparent"}>
-                      <td style={{ padding: "18px 24px", fontSize: 14, fontWeight: 600, color: "#1e293b" }}>{email.subject}</td>
-                      <td style={{ padding: "18px 24px", fontSize: 14, color: "#475569" }}>{email.recipient}</td>
+                    <tr key={email.id} style={{ borderBottom: "1px solid #2d3a4a", transition: "background 0.1s ease" }} onMouseEnter={(e) => e.currentTarget.style.background = "#1a2332"} onMouseLeave={(e) => e.currentTarget.style.background = "transparent"}>
+                      <td style={{ padding: "18px 24px", fontSize: 14, fontWeight: 600, color: "#e2e8f0" }}>{email.subject}</td>
+                      <td style={{ padding: "18px 24px", fontSize: 14, color: "#cbd5e1" }}>{email.recipient}</td>
                       <td style={{ padding: "18px 24px" }}>
                         <span style={{
                           display: "inline-flex",
@@ -273,24 +273,24 @@ function Dashboard() {
                           borderRadius: 30,
                           fontSize: 12,
                           fontWeight: 600,
-                          background: email.opened ? "#e6f4ea" : "#f1f3f4",
-                          color: email.opened ? "#137333" : "#5f6368"
+                          background: email.opened ? "#064e3b" : "#374151",
+                          color: email.opened ? "#6ee7b7" : "#9ca3af"
                         }}>
                           {email.opened ? (
                             <>
-                              <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#137333" }} />
+                              <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#6ee7b7" }} />
                               Opened
                             </>
                           ) : (
                             <>
-                              <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#5f6368" }} />
+                              <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#9ca3af" }} />
                               Pending
                             </>
                           )}
                         </span>
                       </td>
-                      <td style={{ padding: "18px 24px", fontSize: 13, color: "#64748b" }}>{formatDate(email.createdAt)}</td>
-                      <td style={{ padding: "18px 24px", fontSize: 13, color: email.opened ? "#475569" : "#94a3b8" }}>
+                      <td style={{ padding: "18px 24px", fontSize: 13, color: "#94a3b8" }}>{formatDate(email.createdAt)}</td>
+                      <td style={{ padding: "18px 24px", fontSize: 13, color: email.opened ? "#cbd5e1" : "#64748b" }}>
                         {email.openedAt ? formatDate(email.openedAt) : "—"}
                       </td>
                     </tr>
@@ -299,13 +299,13 @@ function Dashboard() {
               </table>
             </div>
           ) : (
-            <div style={{ padding: "80px 24px", textAlign: "center", color: "#64748b" }}>
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style={{ color: "#94a3b8", marginBottom: 16 }}>
+            <div style={{ padding: "80px 24px", textAlign: "center", color: "#94a3b8" }}>
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style={{ color: "#64748b", marginBottom: 16 }}>
                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                 <polyline points="22,6 12,13 2,6"></polyline>
               </svg>
-              <h3 style={{ margin: "0 0 8px 0", fontSize: 16, fontWeight: 600, color: "#334155" }}>No tracked emails found</h3>
-              <p style={{ margin: 0, fontSize: 14, color: "#94a3b8" }}>
+              <h3 style={{ margin: "0 0 8px 0", fontSize: 16, fontWeight: 600, color: "#cbd5e1" }}>No tracked emails found</h3>
+              <p style={{ margin: 0, fontSize: 14, color: "#64748b" }}>
                 {searchTerm || filterType !== "all" ? "Try adjusting your search filters" : "Send your first tracked email from Gmail!"}
               </p>
             </div>
