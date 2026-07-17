@@ -13,7 +13,23 @@ function Dashboard() {
     try {
       const [s, list] = await Promise.all([fetchStats(), fetchRecentStatuses()]);
       setStats(s);
-      setEmails(list);
+      // Deduplicate: for same subject+recipient, keep only the earliest entry
+      // if subsequent ones were created within 5 minutes (double-send detection)
+      const FIVE_MINUTES_MS = 5 * 60 * 1000;
+      const seen = new Map<string, number>(); // key -> earliest createdAt timestamp
+      const deduped = list.filter(e => {
+        const key = `${e.subject.trim().toLowerCase()}|${e.recipient.trim().toLowerCase()}`;
+        const ts = new Date(e.createdAt).getTime();
+        if (seen.has(key)) {
+          const firstTs = seen.get(key)!;
+          // If within 5 min of first entry, it's a duplicate — skip it
+          if (Math.abs(ts - firstTs) < FIVE_MINUTES_MS) return false;
+        }
+        // Keep this entry and record its timestamp
+        if (!seen.has(key)) seen.set(key, ts);
+        return true;
+      });
+      setEmails(deduped);
     } catch (err) {
       console.error("[Mail Tracker] Failed to load dashboard data:", err);
     } finally {
@@ -125,7 +141,7 @@ function Dashboard() {
                 transition: "all 0.15s ease"
               }}
             >
-              <svg style={{ animation: loading ? "spin 1s linear infinite" : "none" }} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg style={{ animation: loading ? "spin 1s linear infinite" : "none" }} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path>
               </svg>
               Refresh
@@ -149,7 +165,7 @@ function Dashboard() {
                 opacity: emails.length === 0 ? 0.4 : 1
               }}
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                 <polyline points="7 10 12 15 17 10"></polyline>
                 <line x1="12" y1="15" x2="12" y2="3"></line>
@@ -217,7 +233,7 @@ function Dashboard() {
                   onFocus={(e) => e.target.style.borderColor = "#10b981"}
                   onBlur={(e) => e.target.style.borderColor = "#2d3a4a"}
                 />
-                <svg style={{ position: "absolute", left: 14, top: 12, color: "#64748b" }} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <svg style={{ position: "absolute", left: 14, top: 12, color: "#64748b" }} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <circle cx="11" cy="11" r="8"></circle>
                   <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 </svg>
@@ -300,7 +316,7 @@ function Dashboard() {
             </div>
           ) : (
             <div style={{ padding: "80px 24px", textAlign: "center", color: "#94a3b8" }}>
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style={{ color: "#64748b", marginBottom: 16 }}>
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: "#64748b", marginBottom: 16 }}>
                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                 <polyline points="22,6 12,13 2,6"></polyline>
               </svg>

@@ -105,7 +105,7 @@ function hookSendButton(composeWindow: Element) {
 
     sendBtn.setAttribute(SENDING_ATTR, 'true');
     sendBtn.click();
-    requestAnimationFrame(() => sendBtn.removeAttribute(SENDING_ATTR));
+    setTimeout(() => sendBtn.removeAttribute(SENDING_ATTR), 5000);
   }, true);
 }
 
