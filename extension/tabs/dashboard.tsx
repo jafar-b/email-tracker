@@ -102,7 +102,7 @@ function Dashboard() {
               }}>
                 T
               </div>
-              <h1 style={{ fontSize: 28, fontWeight: 700, letterSpacing: "-0.03em", margin: 0 }}>Mail Tracker Analytics aljshdflkaskvdh</h1>
+              <h1 style={{ fontSize: 28, fontWeight: 700, letterSpacing: "-0.03em", margin: 0 }}>Mail Tracker Analytics </h1>
             </div>
             <p style={{ color: "#94a3b8", margin: "6px 0 0 0", fontSize: 14 }}>Real-time privacy-focused email view statistics</p>
           </div>
@@ -314,6 +314,7 @@ function Dashboard() {
       </div>
 
       <style>{`
+        html, body { margin: 0; padding: 0; background: #0b1120; }
         @keyframes spin {
           0% { transform: rotate(0deg); }
           100% { transform: rotate(360deg); }
